@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+    <struts>
+	   <package name="index" namespace="/" extends="struts-default">
+		  <action name="" method="init" class="action.CommonAction">
+			<result>/index.html</result>
+		  </action>
+	   </package>
+	   
+	   <package name="marketing" namespace="/marketing" extends="struts-default">
+		  <action name="product" method="init" class="action.CommonAction">
+			<result>/productSearch.html</result>
+		  </action>
+	   </package>
+    </struts>

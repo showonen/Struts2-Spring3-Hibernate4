@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+">
+    
+  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" >
+        <property name="jndiName" value="java:comp/env/jdbc/test"></property>
+  </bean>
+    
+  <bean id="test_sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties">
+            <value>
+                hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+                hibernate.show_sql=false
+            </value>
+        </property>
+        <property name="annotatedClasses">
+            <list>
+                <value>entity.Product</value>
+            </list>
+        </property>
+    </bean>
+    
+  <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" >
+        <property name="sessionFactory" ref="test_sessionFactory"></property>
+  </bean>
+  
+  <bean id="productDAO" class="entity.dao.ProductDAO" >
+        <property name="sessionFactory" ref="test_sessionFactory"></property>
+  </bean>
+    
+   
+</beans>
